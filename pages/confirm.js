@@ -1,10 +1,13 @@
 import { useState } from 'react'
-
+import { useRouter } from 'next/router'
 import 'tailwindcss/tailwind.css'
 
 export default function Confirm() {
+  const router = useRouter()
   // I wish I could build a state machine here ;)
   const [code, setCode] = useState('unknown')
+
+  const initialCode = router.query.code
 
   const checkConfirmationCode = async (event) => {
     event.preventDefault()
@@ -67,6 +70,7 @@ export default function Confirm() {
               id="confirmation_code"
               className="bg-white rounded-md border border-gray-200 p-3 focus:outline-none w-full"
               placeholder="abc123"
+              value={initialCode}
               required
             />
           </div>
