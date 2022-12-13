@@ -5,12 +5,16 @@
 // register email commands
 import 'cypress-mailosaur'
 
+// https://github.com/bahmutov/cypress-log-to-term
+import 'cypress-log-to-term/commands'
+
 describe('Email flows', () => {
+  const serverId = Cypress.env('MAILOSAUR_SERVER_ID')
   let userEmail
 
   before(() => {
     // this spec will use the same email
-    const serverId = Cypress.env('MAILOSAUR_SERVER_ID')
+
     const randomId = Cypress._.random(1e6)
     userEmail = `confirmation-${randomId}@${serverId}.mailosaur.net`
     cy.log(`📧 **${userEmail}**`)
@@ -25,10 +29,19 @@ describe('Email flows', () => {
     cy.get('#email').type(userEmail)
     cy.get('button[type=submit]').click()
 
-    // cy.log('**shows message to check emails**')
-    // cy.get('[data-cy=sent-email-to]')
-    //   .should('be.visible')
-    //   .and('have.text', userEmail)
+    cy.log('**shows message to check emails**')
+    cy.get('[data-cy=sent-email-to]')
+      .should('be.visible')
+      .and('have.text', userEmail)
+
+    cy.mailosaurGetMessage(serverId, {
+      sentTo: userEmail,
+    })
+      .then(console.log)
+      .its('html.body')
+      .then((html) => {
+        cy.document({ log: false }).invoke({ log: false }, 'write', html)
+      })
 
     // // retry fetching the email
     // recurse(
@@ -43,62 +56,59 @@ describe('Email flows', () => {
     //   .then((html) => {
     //     cy.document({ log: false }).invoke({ log: false }, 'write', html)
     //   })
-    // cy.log('**email has the user name**')
-    // cy.contains(`Dear ${userName},`).should('be.visible')
-    // cy.log('**email has the confirmation code**')
-    // cy.contains('a', 'Enter the confirmation code')
-    //   .should('be.visible')
-    //   .as('codeLink')
-    //   .invoke('text')
-    //   .then((text) => Cypress._.last(text.split(' ')))
-    //   .then((code) => {
-    //     cy.log(`**confirm the code ${code} works**`)
-    //     expect(code, 'confirmation code')
-    //       .to.be.a('string')
-    //       .and.have.length.gt(5)
+    cy.log('**email has the user name**')
+    cy.contains(`Dear ${userName},`).should('be.visible')
+    cy.log('**email has the confirmation code**')
+    cy.contains('a', 'Enter the confirmation code')
+      .should('be.visible')
+      .as('codeLink')
+      .invoke('text')
+      .then((text) => Cypress._.last(text.split(' ')))
+      .then((code) => {
+        cy.log(`**confirm the code ${code} works**`)
+        expect(code, 'confirmation code')
+          .to.be.a('string')
+          .and.have.length.gt(5)
 
-    //     // add synthetic delay, otherwise the email
-    //     // flashes very quickly
-    //     cy.wait(2000)
-    //     // replace the dynamic confirmation code with constant text
-    //     // since we already validated the code
-    //     cy.get('@codeLink').invoke(
-    //       'text',
-    //       'Enter the confirmation code abc1234',
-    //     )
-    //     cy.contains('strong', new RegExp('^' + code + '$')).invoke(
-    //       'text',
-    //       'abc1234',
-    //     )
-    //     cy.percySnapshot('2 - email')
+        // add synthetic delay, otherwise the email
+        // flashes very quickly
+        cy.wait(2000)
+        //     // replace the dynamic confirmation code with constant text
+        //     // since we already validated the code
+        //     cy.get('@codeLink').invoke(
+        //       'text',
+        //       'Enter the confirmation code abc1234',
+        //     )
+        //     cy.contains('strong', new RegExp('^' + code + '$')).invoke(
+        //       'text',
+        //       'abc1234',
+        //     )
+        //     cy.percySnapshot('2 - email')
 
-    //     // unfortunately we cannot confirm the destination URL
-    //     // via <a href="..."> attribute, because SendGrid changes
-    //     // the href to its proxy URL
+        //     // unfortunately we cannot confirm the destination URL
+        //     // via <a href="..."> attribute, because SendGrid changes
+        //     // the href to its proxy URL
 
-    //     // before we click on the link, let's make sure it
-    //     // does not open a new browser window
-    //     // https://glebbahmutov.com/blog/cypress-tips-and-tricks/#deal-with-target_blank
-    //     cy.get('@codeLink')
-    //       // by default the link wants to open a new window
-    //       .should('have.attr', 'target', '_blank')
-    //       // but the test can point the open back at itself
-    //       // so the click opens it in the current browser window
-    //       .invoke('attr', 'target', '_self')
-    //       .click()
+        //     // before we click on the link, let's make sure it
+        //     // does not open a new browser window
+        //     // https://glebbahmutov.com/blog/cypress-tips-and-tricks/#deal-with-target_blank
+        cy.get('@codeLink')
+          // by default the link wants to open a new window
+          .should('have.attr', 'target', '_blank')
+          // but the test can point the open back at itself
+          // so the click opens it in the current browser window
+          .invoke('attr', 'target', '_self')
+          .click()
 
-    //     // confirm the URL changed back to our web app
-    //     cy.location('pathname', { timeout: 30000 }).should('equal', '/confirm')
-    //     cy.get('#confirmation_code').should('be.visible').type(code)
-    //     cy.get('button[type=submit]').click()
-    //     // first positive assertion, then negative
-    //     // https://glebbahmutov.com/blog/negative-assertions/
-    //     cy.get('[data-cy=confirmed-code]').should('be.visible')
-    //     cy.get('[data-cy=incorrect-code]').should('not.exist')
-
-    //     cy.get('#confirmation_code').clear().type('correct code')
-    //     cy.percySnapshot('3 - correct code')
-    //   })
+        // confirm the URL changed back to our web app
+        cy.location('pathname', { timeout: 30000 }).should('equal', '/confirm')
+        cy.get('#confirmation_code').should('be.visible').type(code)
+        cy.get('button[type=submit]').click()
+        // first positive assertion, then negative
+        // https://glebbahmutov.com/blog/negative-assertions/
+        cy.get('[data-cy=confirmed-code]').should('be.visible')
+        cy.get('[data-cy=incorrect-code]').should('not.exist')
+      })
   })
 
   it.skip('rejects wrong code', () => {
@@ -109,6 +119,6 @@ describe('Email flows', () => {
     // https://glebbahmutov.com/blog/negative-assertions/
     cy.get('[data-cy=incorrect-code]').should('be.visible')
     cy.get('[data-cy=confirmed-code]').should('not.exist')
-    cy.percySnapshot('incorrect code')
+    // cy.percySnapshot('incorrect code')
   })
 })

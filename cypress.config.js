@@ -15,5 +15,11 @@ module.exports = defineConfig({
   e2e: {
     supportFile: false,
     baseUrl: 'http://localhost:3000',
+    setupNodeEvents(on) {
+      // register the "cypress-log-to-term" plugin
+      // https://github.com/bahmutov/cypress-log-to-term
+      // IMPORTANT: pass the "on" callback argument
+      require('cypress-log-to-term')(on)
+    },
   },
 })
