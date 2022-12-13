@@ -73,25 +73,10 @@ describe('Email flows', () => {
         // add synthetic delay, otherwise the email
         // flashes very quickly
         cy.wait(2000)
-        //     // replace the dynamic confirmation code with constant text
-        //     // since we already validated the code
-        //     cy.get('@codeLink').invoke(
-        //       'text',
-        //       'Enter the confirmation code abc1234',
-        //     )
-        //     cy.contains('strong', new RegExp('^' + code + '$')).invoke(
-        //       'text',
-        //       'abc1234',
-        //     )
-        //     cy.percySnapshot('2 - email')
 
-        //     // unfortunately we cannot confirm the destination URL
-        //     // via <a href="..."> attribute, because SendGrid changes
-        //     // the href to its proxy URL
-
-        //     // before we click on the link, let's make sure it
-        //     // does not open a new browser window
-        //     // https://glebbahmutov.com/blog/cypress-tips-and-tricks/#deal-with-target_blank
+        // before we click on the link, let's make sure it
+        // does not open a new browser window
+        // https://glebbahmutov.com/blog/cypress-second-tab/
         cy.get('@codeLink')
           // by default the link wants to open a new window
           .should('have.attr', 'target', '_blank')
@@ -109,16 +94,5 @@ describe('Email flows', () => {
         cy.get('[data-cy=confirmed-code]').should('be.visible')
         cy.get('[data-cy=incorrect-code]').should('not.exist')
       })
-  })
-
-  it.skip('rejects wrong code', () => {
-    cy.visit('/confirm')
-    cy.get('#confirmation_code').type('wrong code')
-    cy.get('button[type=submit]').click()
-    // first positive assertion, then negative
-    // https://glebbahmutov.com/blog/negative-assertions/
-    cy.get('[data-cy=incorrect-code]').should('be.visible')
-    cy.get('[data-cy=confirmed-code]').should('not.exist')
-    // cy.percySnapshot('incorrect code')
   })
 })
