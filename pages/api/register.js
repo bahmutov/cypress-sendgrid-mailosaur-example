@@ -22,7 +22,7 @@ export default async (req, res) => {
       await emailer.sendTemplateEmail({
         to: email,
         // the ID of the dynamic template we have designed
-        template_id: 'd-9b1e07a7d2994b14ae394026a6ccc997',
+        template_id: 'd-aa11bf8f9a6c4930bf69be675521e5fc',
         dynamic_template_data: {
           code: confirmationCode,
           username: name,
