@@ -1,0 +1,4 @@
+node_modules/
+.next/
+db.json
+.as-a.ini

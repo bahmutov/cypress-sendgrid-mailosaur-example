@@ -1,0 +1,40 @@
+{
+  "name": "cypress-sendgrid-visual-testing-example",
+  "version": "1.0.0",
+  "description": "Visual testing for HTML emails sent via SendGrid dynamic transactional templates",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "next dev",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "local": "start-test 3000 cy:open"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@percy/cli": "1.0.0-beta.50",
+    "@percy/cypress": "3.1.1",
+    "autoprefixer": "10.2.5",
+    "cypress": "12.1.0",
+    "cypress-recurse": "1.8.1",
+    "imap-simple": "5.0.0",
+    "lodash": "4.17.21",
+    "mailparser": "3.3.0",
+    "nodemailer": "6.6.3",
+    "postcss": "8.2.13",
+    "prettier": "2.8.1",
+    "start-server-and-test": "1.12.1",
+    "tailwindcss": "2.1.2"
+  },
+  "dependencies": {
+    "@sendgrid/client": "7.4.3",
+    "@sendgrid/mail": "7.4.4",
+    "lowdb": "1.0.0",
+    "next": "11.0.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  }
+}
