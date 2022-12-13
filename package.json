@@ -1,7 +1,7 @@
 {
-  "name": "cypress-sendgrid-visual-testing-example",
+  "name": "cypress-sendgrid-mailosaur-example",
   "version": "1.0.0",
-  "description": "Visual testing for HTML emails sent via SendGrid dynamic transactional templates",
+  "description": "Sending and testing email flows example",
   "main": "index.js",
   "private": true,
   "scripts": {
@@ -12,8 +12,10 @@
     "local": "start-test 3000 cy:open",
     "badges": "npx -p dependency-version-badge update-badge cypress"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "cypress-example"
+  ],
+  "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "autoprefixer": "10.2.5",
