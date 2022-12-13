@@ -20,7 +20,7 @@ describe('Email flows', () => {
     cy.log(`📧 **${userEmail}**`)
   })
 
-  it.only('sends confirmation code', () => {
+  it('sends confirmation code', () => {
     const userName = 'Joe Bravo'
 
     cy.visit('/')
@@ -43,19 +43,6 @@ describe('Email flows', () => {
         cy.document({ log: false }).invoke({ log: false }, 'write', html)
       })
 
-    // // retry fetching the email
-    // recurse(
-    //   () => cy.task('getLastEmail'), // Cypress commands to retry
-    //   Cypress._.isObject, // keep retrying until the task returns an object
-    //   {
-    //     timeout: 60000, // retry up to 1 minute
-    //     delay: 5000, // wait 5 seconds between attempts
-    //   },
-    // )
-    //   .its('html')
-    //   .then((html) => {
-    //     cy.document({ log: false }).invoke({ log: false }, 'write', html)
-    //   })
     cy.log('**email has the user name**')
     cy.contains(`Dear ${userName},`).should('be.visible')
     cy.log('**email has the confirmation code**')
@@ -87,7 +74,11 @@ describe('Email flows', () => {
 
         // confirm the URL changed back to our web app
         cy.location('pathname', { timeout: 30000 }).should('equal', '/confirm')
-        cy.get('#confirmation_code').should('be.visible').type(code)
+        cy.location('search').should('equal', `?code=${code}`)
+        cy.log(`input code field is prefilled with code ${code}`)
+        cy.get('#confirmation_code')
+          .should('be.visible')
+          .and('have.value', code)
         cy.get('button[type=submit]').click()
         // first positive assertion, then negative
         // https://glebbahmutov.com/blog/negative-assertions/
