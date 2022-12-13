@@ -6,6 +6,8 @@
 - Fetching sent emails using [cypress-mailosaur](https://github.com/mailosaur/cypress-mailosaur)
 - End-to-end testing using Cypress
 
+![Confirmation code email](./images/email.png)
+
 ## Prerequisites
 
 SendGrid account with API key and a verified email sender, see [this doc](https://sendgrid.com/docs/for-developers/sending-email/quickstart-nodejs/). Similarly you need Mailosaur server ID and API key.
