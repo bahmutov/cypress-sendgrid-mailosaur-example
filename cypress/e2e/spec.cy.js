@@ -1,9 +1,7 @@
 /// <reference types="cypress" />
 // @ts-check
-// https://github.com/bahmutov/cypress-recurse
-const { recurse } = require('cypress-recurse')
-// https://docs.percy.io/docs/cypress
-require('@percy/cypress')
+
+// https://github.com/mailosaur/cypress-mailosaur
 
 describe('Email confirmation', () => {
   let userEmail
