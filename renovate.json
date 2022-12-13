@@ -12,11 +12,8 @@
       "packagePatterns": ["*"],
       "excludePackagePatterns": [
         "cypress",
-        "cypress-recurse",
-        "next",
-        "mailparser",
-        "nodemailer",
-        "lowdb"
+        "cypress-mailosaur",
+        "cypress-log-to-term"
       ],
       "enabled": false
     }
