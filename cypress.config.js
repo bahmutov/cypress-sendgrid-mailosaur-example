@@ -11,7 +11,7 @@ module.exports = defineConfig({
   fixturesFolder: false,
   viewportWidth: 1200,
   viewportHeight: 800,
-  video: true,
+  video: false,
   e2e: {
     supportFile: false,
     baseUrl: 'http://localhost:3000',
