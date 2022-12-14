@@ -2,6 +2,8 @@
 
 > Sending and testing email flows example
 
+Read 📝 [Testing Email Flow Using Cypress and Mailosaur](https://glebbahmutov.com/blog/cypress-mailosaur/)
+
 - Sending emails via Sendgrid
 - Fetching sent emails using [cypress-mailosaur](https://github.com/mailosaur/cypress-mailosaur)
 - End-to-end testing using Cypress
