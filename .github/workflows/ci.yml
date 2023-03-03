@@ -10,7 +10,7 @@ jobs:
       # install NPM dependencies and Cypress
       # https://github.com/cypress-io/github-action
       - name: Install 📦
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v5
         with:
           runTests: false
 
@@ -24,7 +24,7 @@ jobs:
 
       # run Cypress tests
       - name: E2E tests 🧪
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v5
         with:
           # we already installed everything
           install: false
