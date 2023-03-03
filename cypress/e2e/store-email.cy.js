@@ -47,6 +47,12 @@ describe('An email', () => {
     cy.document({ log: false }).invoke({ log: false }, 'write', this.email)
   })
 
+  // during interactive work, comment this "after each" hook
+  // to keep reusing the same email for speed
+  afterEach(() => {
+    Cypress.clearDataSession('email')
+  })
+
   it('shows the code by itself', () => {
     cy.contains('strong', /^[a-z0-9]{8}$/)
       .invoke('text')
