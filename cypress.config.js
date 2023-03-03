@@ -1,4 +1,5 @@
 const { defineConfig } = require('cypress')
+const registerDataSession = require('cypress-data-session/src/plugin')
 
 if (typeof process.env.CYPRESS_MAILOSAUR_SERVER_ID === 'undefined') {
   throw new Error('Missing CYPRESS_MAILOSAUR_SERVER_ID')
@@ -15,11 +16,13 @@ module.exports = defineConfig({
   e2e: {
     supportFile: false,
     baseUrl: 'http://localhost:3000',
-    setupNodeEvents(on) {
+    setupNodeEvents(on, config) {
       // register the "cypress-log-to-term" plugin
       // https://github.com/bahmutov/cypress-log-to-term
       // IMPORTANT: pass the "on" callback argument
       require('cypress-log-to-term')(on)
+      registerDataSession(on, config)
+      return config
     },
   },
 })
