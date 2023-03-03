@@ -1,3 +1,4 @@
+// @ts-check
 const { defineConfig } = require('cypress')
 const registerDataSession = require('cypress-data-session/src/plugin')
 const axios = require('axios')
@@ -26,6 +27,13 @@ async function getEmailUsage() {
     console.error('problem fetching Mailosaur usage')
     console.error(e.message)
   }
+}
+
+/**
+ * Returns true if we are inside "cypress open" command
+ */
+const isInteractive = (config) => {
+  return !config.isTextTerminal
 }
 
 /**
