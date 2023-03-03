@@ -1,4 +1,4 @@
-# cypress-sendgrid-mailosaur-example ![cypress version](https://img.shields.io/badge/cypress-12.2.0-brightgreen) [![ci](https://github.com/bahmutov/cypress-sendgrid-mailosaur-example/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/bahmutov/cypress-sendgrid-mailosaur-example/actions/workflows/ci.yml)
+# cypress-sendgrid-mailosaur-example ![cypress version](https://img.shields.io/badge/cypress-12.7.0-brightgreen) [![ci](https://github.com/bahmutov/cypress-sendgrid-mailosaur-example/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/bahmutov/cypress-sendgrid-mailosaur-example/actions/workflows/ci.yml)
 
 > Sending and testing email flows example
 
