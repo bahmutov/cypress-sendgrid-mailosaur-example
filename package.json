@@ -19,8 +19,8 @@
   "license": "ISC",
   "devDependencies": {
     "autoprefixer": "10.2.5",
-    "cypress": "12.2.0",
-    "cypress-log-to-term": "^1.0.0",
+    "cypress": "12.7.0",
+    "cypress-log-to-term": "^1.5.2",
     "cypress-mailosaur": "^2.13.0",
     "postcss": "8.2.13",
     "prettier": "2.8.1",
