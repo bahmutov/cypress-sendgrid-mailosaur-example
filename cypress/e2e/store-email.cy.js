@@ -47,9 +47,9 @@ describe('An email', () => {
     cy.document({ log: false }).invoke({ log: false }, 'write', this.email)
   })
 
-  // during interactive work, comment this "after each" hook
+  // during interactive work, comment this "after" hook
   // to keep reusing the same email for speed
-  afterEach(() => {
+  after(() => {
     Cypress.clearDataSession('email')
   })
 
