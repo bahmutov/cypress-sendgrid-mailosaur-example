@@ -12,6 +12,13 @@ import 'cypress-log-to-term/commands'
 import 'cypress-data-session'
 
 describe('An email', () => {
+  if (Cypress.env('skipEmailTests')) {
+    it('shows the code by itself')
+    it('has the confirmation code link')
+    it('has the working code')
+    return
+  }
+
   beforeEach(() => {
     cy.dataSession({
       name: 'email',
