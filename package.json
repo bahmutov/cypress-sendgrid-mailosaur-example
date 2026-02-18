@@ -23,7 +23,7 @@
     "cypress": "12.8.1",
     "cypress-data-session": "^2.3.1",
     "cypress-log-to-term": "^1.5.2",
-    "cypress-mailosaur": "^2.13.0",
+    "cypress-mailosaur": "^5.0.0",
     "postcss": "8.2.13",
     "prettier": "2.8.1",
     "start-server-and-test": "1.12.1",
